@@ -1,0 +1,15 @@
+package com.jsp.redbusclone.serviceimpl;
+
+import org.springframework.stereotype.Service;
+
+import com.jsp.redbusclone.service.TestService;
+
+@Service
+public class TestServiceImpl implements TestService {
+
+	@Override
+	public void testAsyncBehavior() {
+		
+	}
+
+}

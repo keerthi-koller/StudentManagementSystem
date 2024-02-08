@@ -1,0 +1,5 @@
+package com.jsp.redbusclone.serviceimpl;
+
+public class SeatServiceImpl {
+
+}

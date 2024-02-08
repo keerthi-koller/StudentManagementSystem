@@ -1,0 +1,26 @@
+package com.jsp.employeemanagementsystem.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.jsp.employeemanagementsystem.dto.EmployeeRequest;
+import com.jsp.employeemanagementsystem.dto.EmployeeResponse;
+import com.jsp.employeemanagementsystem.service.EmployeeService;
+import com.jsp.employeemanagementsystem.util.ResponseStructure;
+
+@RestController
+@RequestMapping("employees")
+public class EmployeeController {
+	
+	@Autowired
+	private EmployeeService employeeService;
+	
+	@PostMapping
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> saveEmployee (@RequestBody EmployeeRequest employeeRequest)
+	{
+		return employeeService.saveEmployee(employeeRequest);
+	}
+}

@@ -1,0 +1,5 @@
+package com.jsp.studentmanagementsystem1.exception;
+
+public class StudentEmailsNotFoundBasedOnGradeException {
+
+}

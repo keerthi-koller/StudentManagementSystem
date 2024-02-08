@@ -1,0 +1,16 @@
+package com.jsp.employeemanagementsystem.exception;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.jsp.employeemanagementsystem.util.ErrorStructure;
+
+@RestControllerAdvice
+public class ApplicationExceptionHandler {
+	
+	public ResponseEntity<ErrorStructure> employeeNotFoundById (EmployeeNotFoundByIdException ex)
+	{
+		
+	}
+	
+}

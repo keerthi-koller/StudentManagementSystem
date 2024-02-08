@@ -1,0 +1,5 @@
+package com.jsp.employeemanagementsystem.service;
+
+public interface EmployeeService {
+
+}

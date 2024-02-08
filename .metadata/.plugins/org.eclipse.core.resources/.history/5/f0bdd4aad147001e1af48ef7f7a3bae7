@@ -1,0 +1,9 @@
+package com.jsp.redbusclone.serviceimpl;
+
+import org.springframework.stereotype.Service;
+import com.jsp.redbusclone.service.SeatService;
+
+@Service
+public class SeatServiceImpl implements SeatService {
+
+}

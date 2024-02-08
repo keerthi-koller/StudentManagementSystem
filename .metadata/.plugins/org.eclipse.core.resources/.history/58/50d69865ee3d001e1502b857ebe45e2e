@@ -1,0 +1,108 @@
+package com.jsp.employeemanagementsystem.serviceimpl;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.jsp.employeemanagementsystem.dto.EmployeeRequest;
+import com.jsp.employeemanagementsystem.dto.EmployeeResponse;
+import com.jsp.employeemanagementsystem.entity.Employee;
+import com.jsp.employeemanagementsystem.repository.EmployeeRepo;
+import com.jsp.employeemanagementsystem.service.EmployeeService;
+import com.jsp.employeemanagementsystem.util.ResponseStructure;
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+	@Autowired
+	private EmployeeRepo employeeRepo;
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> saveEmployee(EmployeeRequest employeeRequest) {
+		
+		LocalDateTime localDateTime = LocalDateTime.now();
+		
+		Employee employee = new Employee();
+		
+		employee.setEmpFirstName(employeeRequest.getEmpFirstName());
+		employee.setEmpLastName(employeeRequest.getEmpLastName());
+		employee.setEmpPhNo(employeeRequest.getEmpPhNo());
+		employee.setEmpEmail(employeeRequest.getEmpEmail());
+		employee.setEmpPwd(employeeRequest.getEmpPwd());
+		employee.setEmpSal(employeeRequest.getEmpSal());
+		employee.setLocalDateTime(localDateTime);
+		
+		employee = employeeRepo.save(employee);
+		
+		EmployeeResponse employeeResponse = new EmployeeResponse();
+		
+		employeeResponse.setEmpId(employee.getEmpId());
+		employeeResponse.setEmpFirstName(employee.getEmpFirstName());
+		employeeResponse.setEmpLastName(employee.getEmpLastName());
+		employeeResponse.setEmpEmail(employee.getEmpEmail());
+		employeeResponse.setEmpPhNo(employee.getEmpPhNo());
+		employeeResponse.setLocalDateTime(employee.getLocalDateTime());
+		
+		ResponseStructure<EmployeeResponse> structure = new ResponseStructure<EmployeeResponse>();
+		
+		structure.setStatus(HttpStatus.CREATED.value());
+		structure.setMessage("Employee data saved successfully !!!");
+		structure.setData(employeeResponse);
+		
+		return new ResponseEntity<ResponseStructure<EmployeeResponse>> (structure, HttpStatus.CREATED);
+		
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> updateEmployee(EmployeeRequest employeeRequest,
+			int empId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> deleteEmployee(EmployeeRequest employeeRequest) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> findEmployeeByEmpId(int empId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<List<EmployeeResponse>>> findAllEmployees() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> findEmployeeByEmpEmail(String empEmail) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> findEmployeeByEmpPhNo(long empPhNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<List<EmployeeResponse>>> getAllEmployeeByEmpSal(double empSal) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getAllEmpEmailsByLocalDateTime(LocalDateTime localDateTime) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

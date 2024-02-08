@@ -1,0 +1,49 @@
+package com.jsp.employeemanagementsystem.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.jsp.employeemanagementsystem.util.ErrorStructure;
+
+@RestControllerAdvice
+public class ApplicationExceptionHandler {
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure> employeeNotFoundById (EmployeeNotFoundByIdException ex)
+	{
+		ErrorStructure error = new ErrorStructure();
+		
+		error.setStatus(HttpStatus.NOT_FOUND.value());
+		error.setMessage(ex.getMessage());
+		error.setRootCause("Employee Not Found By This Given Id !!");
+		
+		return new ResponseEntity<ErrorStructure> (error, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure> employeeDataNotFound (EmployeeDataNotFoundException ex)
+	{
+		ErrorStructure error = new ErrorStructure();
+		
+		error.setStatus(HttpStatus.NOT_FOUND.value());
+		error.setMessage(ex.getMessage());
+		error.setRootCause("Employee table is empty !!");
+		
+		return new ResponseEntity<ErrorStructure> (error, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure> EmployeeNotFoundByEmail (EmployeeNotFoundByEmailException ex)
+	{
+		ErrorStructure error = new ErrorStructure();
+		
+		error.setStatus(HttpStatus.NOT_FOUND.value());
+		error.setMessage(ex.getMessage());
+		error.setRootCause("Employee data not found !!");
+		
+		return new ResponseEntity<ErrorStructure> (error, HttpStatus.NOT_FOUND);
+	}
+	
+}

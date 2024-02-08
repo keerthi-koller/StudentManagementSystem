@@ -1,0 +1,375 @@
+package com.jsp.employeemanagementsystem.serviceimpl;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import com.jsp.employeemanagementsystem.dto.EmployeeRequest;
+import com.jsp.employeemanagementsystem.dto.EmployeeResponse;
+import com.jsp.employeemanagementsystem.entity.Employee;
+import com.jsp.employeemanagementsystem.exception.EmployeeDataNotFoundException;
+import com.jsp.employeemanagementsystem.exception.EmployeeNotFoundByEmailException;
+import com.jsp.employeemanagementsystem.exception.EmployeeNotFoundByIdException;
+import com.jsp.employeemanagementsystem.exception.EmployeeNotFoundByPhNoException;
+import com.jsp.employeemanagementsystem.exception.EmployeeNotfoundBySalException;
+import com.jsp.employeemanagementsystem.repository.EmployeeRepo;
+import com.jsp.employeemanagementsystem.service.EmployeeService;
+import com.jsp.employeemanagementsystem.util.ResponseStructure;
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+	@Autowired
+	private EmployeeRepo employeeRepo;
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> saveEmployee(EmployeeRequest employeeRequest) {
+				
+		Employee employee = new Employee();
+		
+		employee.setEmpFirstName(employeeRequest.getEmpFirstName());
+		employee.setEmpLastName(employeeRequest.getEmpLastName());
+		employee.setEmpPhNo(employeeRequest.getEmpPhNo());
+		employee.setEmpEmail(employeeRequest.getEmpEmail());
+		employee.setEmpPwd(employeeRequest.getEmpPwd());
+		employee.setEmpSal(employeeRequest.getEmpSal());
+		employee.setDateFormat(new Date().toLocaleString());
+		
+		employee = employeeRepo.save(employee);
+		
+		EmployeeResponse employeeResponse = new EmployeeResponse();
+		
+		employeeResponse.setEmpId(employee.getEmpId());
+		employeeResponse.setEmpFirstName(employee.getEmpFirstName());
+		employeeResponse.setEmpLastName(employee.getEmpLastName());
+		employeeResponse.setEmpEmail(employee.getEmpEmail());
+		employeeResponse.setEmpPhNo(employee.getEmpPhNo());
+		employeeResponse.setDateFormat(employee.getDateFormat());
+		
+		ResponseStructure<EmployeeResponse> structure = new ResponseStructure<EmployeeResponse>();
+		
+		structure.setStatus(HttpStatus.CREATED.value());
+		structure.setMessage("Employee data saved successfully !!!");
+		structure.setData(employeeResponse);
+		
+		return new ResponseEntity<ResponseStructure<EmployeeResponse>> (structure, HttpStatus.CREATED);
+		
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> updateEmployee(EmployeeRequest employeeRequest,
+			int empId) {
+		
+		Optional<Employee> optional = employeeRepo.findById(empId);
+		
+		Employee employee1 = new Employee();
+
+		
+		if (optional.isPresent())
+		{
+			Employee employee = optional.get();
+			
+			employee1.setEmpId(employee.getEmpId());
+			employee1.setEmpFirstName(employeeRequest.getEmpFirstName());
+			employee1.setEmpLastName(employeeRequest.getEmpLastName());
+			employee1.setEmpPhNo(employeeRequest.getEmpPhNo());
+			employee1.setEmpEmail(employeeRequest.getEmpEmail());
+			employee1.setEmpPwd(employeeRequest.getEmpPwd());
+			employee1.setEmpSal(employeeRequest.getEmpSal());
+			employee1.setDateFormat(new Date().toLocaleString());
+			
+			employee = employeeRepo.save(employee1);
+			
+			EmployeeResponse employeeResponse = new EmployeeResponse();
+			
+			employeeResponse.setEmpId(employee.getEmpId());
+			employeeResponse.setEmpFirstName(employee.getEmpFirstName());
+			employeeResponse.setEmpLastName(employee.getEmpLastName());
+			employeeResponse.setEmpPhNo(employee.getEmpPhNo());
+			employeeResponse.setEmpEmail(employee.getEmpEmail());
+			employeeResponse.setDateFormat(employee.getDateFormat());
+			
+			ResponseStructure<EmployeeResponse> structure = new ResponseStructure<EmployeeResponse>();
+			
+			structure.setStatus(HttpStatus.ACCEPTED.value());
+			structure.setMessage("Employee data updated successfully !!");
+			structure.setData(employeeResponse);
+			
+			return new ResponseEntity<ResponseStructure<EmployeeResponse>> (structure, HttpStatus.ACCEPTED);
+			
+		}
+		else
+		{
+			throw new EmployeeNotFoundByIdException ("Employee Not Found BY this Id...!!");
+		}
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> deleteEmployee(int empId) {
+		
+		Optional<Employee> optional = employeeRepo.findById(empId);
+				
+		if (optional.isPresent())
+		{
+			Employee employee = optional.get();
+			
+			employeeRepo.delete(employee);
+			
+			EmployeeResponse employeeResponse = new EmployeeResponse();
+			
+			employeeResponse.setEmpId(employee.getEmpId());
+			employeeResponse.setEmpFirstName(employee.getEmpFirstName());
+			employeeResponse.setEmpLastName(employee.getEmpLastName());
+			employeeResponse.setEmpPhNo(employee.getEmpPhNo());
+			employeeResponse.setEmpEmail(employee.getEmpEmail());
+			employeeResponse.setDateFormat(employee.getDateFormat());
+			
+			ResponseStructure<EmployeeResponse> structure = new ResponseStructure<EmployeeResponse>();
+			
+			structure.setStatus(HttpStatus.OK.value());
+			structure.setMessage("Employee data deleted successfully !!!");
+			structure.setData(employeeResponse);
+			
+			return new ResponseEntity<ResponseStructure<EmployeeResponse>> (structure, HttpStatus.OK);
+		}
+		else
+		{
+			throw new EmployeeNotFoundByIdException("Employee data not found !!!");
+		}
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> findEmployeeByEmpId(int empId) {
+		
+		Optional<Employee> optional = employeeRepo.findById(empId);
+		
+		if (optional.isPresent())
+		{
+			Employee employee = optional.get();
+			
+			EmployeeResponse employeeResponse = new EmployeeResponse();
+			
+			employeeResponse.setEmpId(employee.getEmpId());
+			employeeResponse.setEmpFirstName(employee.getEmpFirstName());
+			employeeResponse.setEmpLastName(employee.getEmpLastName());
+			employeeResponse.setEmpPhNo(employee.getEmpPhNo());
+			employeeResponse.setEmpEmail(employee.getEmpEmail());
+			employeeResponse.setDateFormat(employee.getDateFormat());
+			
+			ResponseStructure<EmployeeResponse> structure = new ResponseStructure<EmployeeResponse>();
+			
+			structure.setStatus(HttpStatus.FOUND.value());
+			structure.setMessage("Employee data found based on id !!");
+			structure.setData(employeeResponse);
+			
+			return new ResponseEntity<ResponseStructure<EmployeeResponse>> (structure, HttpStatus.FOUND);
+			
+		}
+		else
+		{
+			throw new EmployeeNotFoundByIdException("Employee not found with this id !!");
+		}
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<List<EmployeeResponse>>> findAllEmployees() {
+		
+		List<Employee> findAll = employeeRepo.findAll();
+		
+		if (!findAll.isEmpty())
+		{
+			List<EmployeeResponse> responses = new ArrayList<EmployeeResponse>();
+			
+			for (int i=0; i<=findAll.size()-1; i++)
+			{
+				EmployeeResponse res = new EmployeeResponse();
+				res.setEmpId(findAll.get(i).getEmpId());
+				res.setEmpFirstName(findAll.get(i).getEmpFirstName());
+				res.setEmpLastName(findAll.get(i).getEmpLastName());
+				res.setEmpPhNo(findAll.get(i).getEmpPhNo());
+				res.setEmpEmail(findAll.get(i).getEmpEmail());
+				res.setDateFormat(findAll.get(i).getDateFormat());
+				
+				responses.add(res);
+			}
+			
+			ResponseStructure<List<EmployeeResponse>> structure = new ResponseStructure<List<EmployeeResponse>>();
+			structure.setStatus(HttpStatus.FOUND.value());
+			structure.setMessage("Employee data found !!");
+			structure.setData(responses);
+			
+			return new ResponseEntity<ResponseStructure<List<EmployeeResponse>>> (structure, HttpStatus.FOUND);
+		}
+		else
+		{
+			throw new EmployeeDataNotFoundException ("No Employee data is present !!");
+		}
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> findEmployeeByEmpEmail(String empEmail) {
+		
+		Employee employee = employeeRepo.findByEmpEmail(empEmail);
+		
+		if (employee != null)
+		{
+			EmployeeResponse employeeResponse = new EmployeeResponse();
+			
+			employeeResponse.setEmpId(employee.getEmpId());
+			employeeResponse.setEmpFirstName(employee.getEmpFirstName());
+			employeeResponse.setEmpLastName(employee.getEmpLastName());
+			employeeResponse.setEmpPhNo(employee.getEmpPhNo());
+			employeeResponse.setEmpEmail(employee.getEmpEmail());
+			employeeResponse.setDateFormat(employee.getDateFormat());
+			
+			ResponseStructure<EmployeeResponse> structure = new ResponseStructure<EmployeeResponse>();
+			structure.setStatus(HttpStatus.FOUND.value());
+			structure.setMessage("Employee data found based on Email!!");
+			structure.setData(employeeResponse);
+			
+			return new ResponseEntity<ResponseStructure<EmployeeResponse>> (structure, HttpStatus.FOUND);
+			
+		}
+		else
+		{
+			throw new EmployeeNotFoundByEmailException ("Employee data not found !!");
+		}
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> findEmployeeByEmpPhNo(long empPhNo) {
+		
+		Employee employee = employeeRepo.findByEmpPhNo(empPhNo);
+		
+		if (employee != null)
+		{
+			EmployeeResponse employeeResponse = new EmployeeResponse();
+			
+			employeeResponse.setEmpId(employee.getEmpId());
+			employeeResponse.setEmpFirstName(employee.getEmpFirstName());
+			employeeResponse.setEmpLastName(employee.getEmpLastName());
+			employeeResponse.setEmpPhNo(employee.getEmpPhNo());
+			employeeResponse.setEmpEmail(employee.getEmpEmail());
+			employeeResponse.setDateFormat(employee.getDateFormat());
+			
+			ResponseStructure<EmployeeResponse> structure = new ResponseStructure<EmployeeResponse>();
+			
+			structure.setStatus(HttpStatus.FOUND.value());
+			structure.setMessage("Employee Data found Based on Phone Number !!");
+			structure.setData(employeeResponse);
+			
+			return new ResponseEntity<ResponseStructure<EmployeeResponse>> (structure, HttpStatus.NOT_FOUND);
+		}
+		else
+		{
+			throw new EmployeeNotFoundByPhNoException ("Employee not found by Phone Number");
+		}
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<List<EmployeeResponse>>> getAllEmployeeByEmpSal(double empSal) {
+		
+		List<Employee> employees = employeeRepo.findByEmpSal(empSal);
+		
+		List<EmployeeResponse> employeeResponses = new ArrayList<EmployeeResponse>();
+		
+		if (employees.size() != 0)
+		{
+			for (Employee emp : employees)
+			{
+				EmployeeResponse employeeResponse = new EmployeeResponse();
+				
+				employeeResponse.setEmpId(emp.getEmpId());
+				employeeResponse.setEmpFirstName(emp.getEmpFirstName());
+				employeeResponse.setEmpLastName(emp.getEmpLastName());
+				employeeResponse.setEmpPhNo(emp.getEmpPhNo());
+				employeeResponse.setEmpEmail(emp.getEmpEmail());
+				employeeResponse.setDateFormat(emp.getDateFormat());
+				
+				employeeResponses.add(employeeResponse);
+			}
+			
+			ResponseStructure<List<EmployeeResponse>> structure = new ResponseStructure<List<EmployeeResponse>>();
+			
+			structure.setStatus(HttpStatus.FOUND.value());
+			structure.setMessage("Employee Data Found Based on Salary !!");
+			structure.setData(employeeResponses);
+			
+			return new ResponseEntity<ResponseStructure<List<EmployeeResponse>>> (structure, HttpStatus.FOUND);
+		}
+		else
+		{
+			throw new EmployeeNotfoundBySalException ("No Employees are taking this salary !!!");
+		}
+	}
+	
+	@Override
+	public ResponseEntity<ResponseStructure<List<String>>> getAllEmpNamesByEmpSal(double empSal) {
+		
+		List<Employee> employees = employeeRepo.findByEmpSal(empSal);
+		
+		List<String> emps = new ArrayList<String>();
+		
+		if (employees.size() != 0)
+		{
+			for (Employee emp : employees)
+			{
+				String firstName = emp.getEmpFirstName();
+				String lastName = emp.getEmpLastName();
+				
+				emps.add(firstName+" "+lastName);				
+			}
+			
+			ResponseStructure<List<String>> structure = new ResponseStructure<List<String>>();
+			
+			structure.setStatus(HttpStatus.FOUND.value());
+			structure.setMessage("Employee Names Found Based on Salary !!");
+			structure.setData(emps);
+			
+			return new ResponseEntity<ResponseStructure<List<String>>> (structure, HttpStatus.FOUND);
+		}
+		else
+		{
+			throw new EmployeeNotfoundBySalException ("No Employees are taking this salary !!!");
+		}
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<List<String>>> getAllEmpNamesEmailsByLocalDateTime (String localDateTime) {
+		
+		List<Employee> findAll = employeeRepo.findAll();
+		
+		List<String> dates = new ArrayList<String>();
+		
+		if (findAll.size() != 0)
+		{
+			for (Employee emp : findAll)
+			{
+				if (emp.getDateFormat().substring(0, 11).equals(localDateTime))
+				{
+					dates.add(emp.getEmpFirstName()+" "+emp.getEmpLastName()+" --> "+emp.getEmpEmail());
+				}
+			}
+			
+			ResponseStructure<List<String>> structure = new ResponseStructure<List<String>>();
+			
+			structure.setStatus(HttpStatus.FOUND.value());
+			structure.setMessage("Employee Name with empEmails are found !!");
+			structure.setData(dates);
+			
+			return new ResponseEntity<ResponseStructure<List<String>>> (structure, HttpStatus.FOUND);
+		}
+		else
+		{
+			throw new EmployeeDataNotFoundException("Employee Not found !!");
+		}
+		
+		return null;
+	}
+
+}

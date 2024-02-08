@@ -1,0 +1,19 @@
+package com.jsp.redbusclone.serviceimpl;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.jsp.redbusclone.entity.Seat;
+import com.jsp.redbusclone.service.SeatService;
+import com.jsp.redbusclone.util.ResponseStructure;
+
+@Service
+public class SeatServiceImpl implements SeatService {
+
+	@Override
+	public ResponseEntity<ResponseStructure<Seat>> saveSeat(Seat seat) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

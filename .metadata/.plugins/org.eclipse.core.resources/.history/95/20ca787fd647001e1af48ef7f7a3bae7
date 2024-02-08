@@ -1,0 +1,20 @@
+package com.jsp.redbusclone.serviceimpl;
+
+import org.springframework.stereotype.Service;
+
+import com.jsp.redbusclone.service.TestService;
+
+@Service
+public class TestServiceImpl implements TestService {
+
+	@Override
+	public void testAsyncBehavior() {
+		
+		for (int i=0; i<10; i++)
+		{
+			System.out.println("Asynchronous call from : " + Thread.currentThread().getName() + " " + i);
+		}
+		
+	}
+
+}

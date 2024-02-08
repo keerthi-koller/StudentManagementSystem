@@ -1,0 +1,5 @@
+package com.jsp.employeemanagementsystem.exception;
+
+public class EmployeeNotFoundByEmailException {
+
+}

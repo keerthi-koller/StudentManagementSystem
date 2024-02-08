@@ -1,0 +1,5 @@
+package com.jsp.employeemanagementsystem.entity;
+
+public class Employee {
+
+}

@@ -1,0 +1,73 @@
+package com.jsp.employeemanagementsystem.serviceimpl;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import com.jsp.employeemanagementsystem.dto.EmployeeRequest;
+import com.jsp.employeemanagementsystem.dto.EmployeeResponse;
+import com.jsp.employeemanagementsystem.repository.EmployeeRepo;
+import com.jsp.employeemanagementsystem.service.EmployeeService;
+import com.jsp.employeemanagementsystem.util.ResponseStructure;
+
+public class EmployeeServiceImpl implements EmployeeService {
+
+	@Autowired
+	private EmployeeRepo employeeRepo;
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> saveEmployee(EmployeeRequest employeeRequest) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> updateEmployee(EmployeeRequest employeeRequest,
+			int empId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> deleteEmployee(EmployeeRequest employeeRequest) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> findEmployeeByEmpId(int empId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<List<EmployeeResponse>>> findAllEmployees() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> findEmployeeByEmpEmail(String empEmail) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> findEmployeeByEmpPhNo(long empPhNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<List<EmployeeResponse>>> getAllEmployeeByEmpSal(double empSal) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getAllEmpEmailsByLocalDateTime(LocalDateTime localDateTime) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

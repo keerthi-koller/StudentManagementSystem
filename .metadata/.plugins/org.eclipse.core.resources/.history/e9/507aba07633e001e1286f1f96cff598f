@@ -1,0 +1,42 @@
+package com.jsp.studentmanagementsystem1.dto;
+
+public class StudentRequest {
+	
+	private String studentName;
+	private String studentEmail;
+	private String studentPhNo;
+	private String studentGrade;
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public String getStudentEmail() {
+		return studentEmail;
+	}
+
+	public void setStudentEmail(String studentEmail) {
+		this.studentEmail = studentEmail;
+	}
+
+	public String getStudentPhNo() {
+		return studentPhNo;
+	}
+
+	public void setStudentPhNo(String studentPhNo) {
+		this.studentPhNo = studentPhNo;
+	}
+
+	public String getStudentGrade() {
+		return studentGrade;
+	}
+
+	public void setStudentGrade(String studentGrade) {
+		this.studentGrade = studentGrade;
+	}
+
+}

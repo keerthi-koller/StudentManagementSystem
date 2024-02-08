@@ -1,0 +1,5 @@
+package com.jsp.redbusclone.service;
+
+public interface SeatService {
+
+}

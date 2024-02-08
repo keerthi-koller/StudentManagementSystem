@@ -1,0 +1,48 @@
+package com.jsp.employeemanagementsystem.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import com.jsp.employeemanagementsystem.dto.EmployeeRequest;
+import com.jsp.employeemanagementsystem.dto.EmployeeResponse;
+import com.jsp.employeemanagementsystem.service.EmployeeService;
+import com.jsp.employeemanagementsystem.util.ResponseStructure;
+
+@RestController
+public class EmployeeController {
+	
+	@Autowired
+	private EmployeeService employeeService;
+	
+	@CrossOrigin
+	@RequestMapping(method = RequestMethod.POST, value = "employee")
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> saveEmployee (@RequestBody EmployeeRequest employeeRequest)
+	{
+		return employeeService.saveEmployee(employeeRequest);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value = "employee", params = "empId")
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> updateEmployee (@RequestBody EmployeeRequest employeeRequest, @RequestParam int empId)
+	{
+		return employeeService.updateEmployee(employeeRequest, empId);
+	}
+	
+	@RequestMapping(method = RequestMethod.DELETE, value = "employee", params = "empId")
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> deleteEmployee (@RequestParam int empId)
+	{
+		return employeeService.deleteEmployee(empId);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "employee", params = "empId")
+	public ResponseEntity<ResponseStructure<EmployeeResponse>> findEmployeeByEmpId (@RequestParam int empId)
+	{
+		return employeeService.findEmployeeByEmpId(empId);
+	}
+	
+}

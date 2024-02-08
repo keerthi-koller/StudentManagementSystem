@@ -1,0 +1,5 @@
+package com.jsp.employeemanagementsystem.dto;
+
+public class EmployeeResponse {
+
+}

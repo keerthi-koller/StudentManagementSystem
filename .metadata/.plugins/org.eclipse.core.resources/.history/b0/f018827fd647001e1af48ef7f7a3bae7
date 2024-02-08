@@ -1,0 +1,19 @@
+package com.jsp.redbusclone.serviceimpl;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.jsp.redbusclone.entity.Traveller;
+import com.jsp.redbusclone.service.TravellerService;
+import com.jsp.redbusclone.util.ResponseStructure;
+
+@Service
+public class TravellerServiceImpl implements TravellerService {
+
+	@Override
+	public ResponseEntity<ResponseStructure<Traveller>> saveTraveller(Traveller traveller) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

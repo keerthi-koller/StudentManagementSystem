@@ -1,0 +1,32 @@
+package com.jsp.employeemanagementsystem.service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.jsp.employeemanagementsystem.entity.Employee;
+
+@Service
+public interface EmployeeService {
+	
+	public Employee saveEmployee (Employee employee);
+	
+	public Employee updateEmployee (Employee employee, int empId);
+	
+	public Employee deleteEmployee (Employee employee);
+	
+	public Employee findEmployeeByEmpId (int empId);
+	
+	public List<Employee> findAllEmployees ();
+	
+	public Employee findEmployeeByEmpEmail (String empEmail);
+	
+	public Employee findEmployeeByEmpPhNo (long empPhNo);
+	
+	public List<Employee> getAllEmployeeByEmpSal (double empSal);
+	
+	public List<String> getAllEmployeeByEmpRegDateTime (LocalDateTime localDateTime);
+	
+}

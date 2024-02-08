@@ -1,0 +1,64 @@
+package com.jsp.employeemanagementsystem.dto;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+public class EmployeeResponse {
+	private int empId;
+	private String empFirstName;
+	private String empLastName;
+	private long empPhNo;
+	private String empEmail;
+	private Date dateFormat;
+
+	public int getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+
+	public String getEmpFirstName() {
+		return empFirstName;
+	}
+
+	public void setEmpFirstName(String empFirstName) {
+		this.empFirstName = empFirstName;
+	}
+
+	public String getEmpLastName() {
+		return empLastName;
+	}
+
+	public void setEmpLastName(String empLastName) {
+		this.empLastName = empLastName;
+	}
+
+	public long getEmpPhNo() {
+		return empPhNo;
+	}
+
+	public void setEmpPhNo(long empPhNo) {
+		this.empPhNo = empPhNo;
+	}
+
+	public String getEmpEmail() {
+		return empEmail;
+	}
+
+	public void setEmpEmail(String empEmail) {
+		this.empEmail = empEmail;
+	}
+
+	public Date getDateFormat() {
+		return dateFormat;
+	}
+
+	public void setDateFormat(Date dateFormat) {
+		this.dateFormat = dateFormat;
+	}
+
+}

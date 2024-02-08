@@ -1,0 +1,5 @@
+package com.jsp.employeemanagementsystem.util;
+
+public class ResponseStructure {
+
+}
