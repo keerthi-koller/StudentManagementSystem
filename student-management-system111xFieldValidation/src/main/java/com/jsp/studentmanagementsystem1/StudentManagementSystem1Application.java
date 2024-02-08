@@ -1,0 +1,16 @@
+package com.jsp.studentmanagementsystem1;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class StudentManagementSystem1Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(StudentManagementSystem1Application.class, args);
+	}
+
+}
+//Queries
+//Select s.studentEmail from Student s where s.studentGrade=?1
+//Select s.studentEmail from Student s where s.studentGrade=1

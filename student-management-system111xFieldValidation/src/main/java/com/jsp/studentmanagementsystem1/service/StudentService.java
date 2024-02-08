@@ -1,0 +1,55 @@
+package com.jsp.studentmanagementsystem1.service;
+
+import java.io.IOException;
+import java.util.List;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.jsp.studentmanagementsystem1.dto.MessageData;
+import com.jsp.studentmanagementsystem1.dto.StudentRequest;
+import com.jsp.studentmanagementsystem1.dto.StudentResponse;
+import com.jsp.studentmanagementsystem1.entity.Student;
+import com.jsp.studentmanagementsystem1.util.ResponseStructure;
+
+import jakarta.mail.MessagingException;
+
+public interface StudentService {
+	
+	public ResponseEntity<ResponseStructure<StudentResponse>> saveStudent(StudentRequest studentRequest);
+	
+	public ResponseEntity<ResponseStructure<StudentResponse>> updateStudent(StudentRequest studentRequest, int studentId);
+	
+	public ResponseEntity<ResponseStructure<StudentResponse>> deleteStudent(int studentId);
+	
+	public ResponseEntity<ResponseStructure<StudentResponse>> findStudentById(int studentId);
+	
+	public ResponseEntity<ResponseStructure<List<StudentResponse>>> findAllStudents();
+	
+	public ResponseEntity<ResponseStructure<StudentResponse>> findByEmail (String studentEmail);
+	
+	public ResponseEntity<ResponseStructure<StudentResponse>> findByPhNo (long studentPhNo);
+	
+	public ResponseEntity<ResponseStructure<List<String>>> getAllEmailsByGrade (String studentGrade);
+	
+//	extracting data from excel sheet
+//	public ResponseEntity<String> extractDataFromExcel (MultipartFile file) throws IOException ;
+	
+	public ResponseEntity<ResponseStructure<List<StudentResponse>>> extractDataFromExcel (MultipartFile file) throws IOException;
+	
+	public ResponseEntity<String> writeToExcel (String filePath) throws IOException;
+	
+	public ResponseEntity<ResponseStructure<List<StudentResponse>>> extractDatafromCsv (MultipartFile file) throws IOException;
+	
+	public ResponseEntity<String> writeToCsv (String filePath) throws IOException;
+	
+	public ResponseEntity<String> sendMail (MessageData messageData);
+	
+	public ResponseEntity<String> sendMyMailMessage (MessageData messageData) throws MessagingException;
+	
+	public ResponseEntity<ResponseStructure<List<StudentResponse>>> extractDatafromCsvAtTheRate (MultipartFile file) throws IOException;
+	
+	public ResponseEntity<String> writeToCsvAtTheRate (String filePath) throws IOException;
+	
+	public ResponseEntity<String> checkEmail (String studentEmail, String studentPassword);
+	
+}
